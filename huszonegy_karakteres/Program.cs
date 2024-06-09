@@ -23,30 +23,14 @@ namespace huszonegy_karakteres
                 .Add("Start", () => difficulty.Show())
                 .Add("Kilépés", ConsoleMenu.Close);
 
-            
-
             menu.Show();
 
-
-
-
-
-
-            //a szamok letrehozasa
-           
-            //
-            //jatekszabaly kiirasa
-
-            //
-            
-            Console.WriteLine();
             Console.Write("Kilépéshez nyomj egy Entert ...");
-            Console.ReadKey(true);
+            Console.ReadKey();
         }
 
         static void Jatekszabaly()
         {
-            
             Console.WriteLine("HUSZONEGY (Magyar kártyajáték)" +
                 "\n");
             Console.WriteLine("Játékszabály:");
@@ -82,11 +66,32 @@ namespace huszonegy_karakteres
                 osszeg += szamok[randomszam];
 
                 Console.WriteLine("Lapjaid összege: {0}", osszeg);
-                Console.Write("Kérsz még lapot?" +
+                bool correct = false;
+                int gomb = 0;
+                while (!correct)
+                {
+                    Console.Write("Kérsz még lapot?" +
                     "\n\t1: igen" +
                     "\n\t2: nem" +
                     "\nÍrd ide a választásod számát: ");
-                int gomb = int.Parse(Console.ReadLine());
+                    
+                    try
+                    {
+                        gomb = int.Parse(Console.ReadLine());
+                        if (gomb < 1 || gomb > 2)
+                        {
+                            throw new FormatException();
+                        }
+                        else
+                        {
+                            correct = true;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Nem megfelelő értéket adtál meg");
+                    }
+                }
 
                 switch (gomb)
                 {
@@ -98,12 +103,33 @@ namespace huszonegy_karakteres
                         if ((osszeg >= 16 && osszeg <= 22 && robotdif > 22) || (osszeg >= 16 && osszeg <= 22 && robotdif < osszeg) || (osszeg >= 16 && osszeg <= 22 && robotdif == osszeg) || (x == 0 && osszeg == 22))
                         {
                             Console.WriteLine("\nNYERTÉL! C:");
-                            Console.Write("Szeretnél új játékot?" +
+                            bool joe = false;
+                            int uj = 0;
+                            while (!joe)
+                            {
+                                Console.Write("Szeretnél új játékot?" +
                                 "\n\t1: igen" +
                                 "\n\t2: nem" +
                                 "\nÍrd ide a választásod számát: ");
+                                
+                                try
+                                {
+                                    uj = int.Parse(Console.ReadLine());
+                                    if (uj < 1 || uj > 2)
+                                    {
+                                        throw new FormatException();
+                                    }
+                                    else
+                                    {
+                                        joe = true;
+                                    }
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Nem megfelelő értéket adtál meg");
+                                }
+                            }
                             
-                            int uj = int.Parse(Console.ReadLine());
                             switch (uj)
                             {
                                 case 1:
@@ -114,7 +140,6 @@ namespace huszonegy_karakteres
                                     vegevan = true;
                                     break;
                                 default:
-
                                     break;
 
                             }
@@ -123,12 +148,33 @@ namespace huszonegy_karakteres
                         else
                         {
                             Console.WriteLine("\nVESZTETTÉL! :C");
-                            Console.Write("Szeretnél új játékot?" +
+                            int uj = 0;
+                            bool joe = false;
+                            while (!joe)
+                            {
+                                Console.Write("Szeretnél új játékot?" +
                                 "\n\t1: igen" +
                                 "\n\t2: nem" +
                                 "\nÍrd ide a választásod számát: ");
-                            
-                            int uj = int.Parse(Console.ReadLine());
+
+                                try
+                                {
+                                    uj = int.Parse(Console.ReadLine());
+                                    if (uj < 1 || uj > 2)
+                                    {
+                                        throw new FormatException();
+                                    }
+                                    else
+                                    {
+                                        joe = true;
+                                    }
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Nem megfelelő értéket adtál meg");
+                                }
+                            }
+
                             switch (uj)
                             {
                                 case 1:
@@ -139,7 +185,6 @@ namespace huszonegy_karakteres
                                     vegevan = true;
                                     break;
                                 default:
-
                                     break;
 
                             }
@@ -147,7 +192,6 @@ namespace huszonegy_karakteres
                         break;
 
                     default:
-                        Console.WriteLine("Nem megfelelő számot adtál meg");
                         break;
                 }
             }
