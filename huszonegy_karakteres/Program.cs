@@ -9,6 +9,7 @@ namespace huszonegy_karakteres
 {
     internal class Program
     {
+        static Random r = new Random();
         static void Main(string[] args)
         {
             var difficulty = new ConsoleMenu(args, level: 1)
@@ -32,294 +33,12 @@ namespace huszonegy_karakteres
 
 
             //a szamok letrehozasa
-            int[] szamok = new int[8];
-            szamok[0] = 2;
-            szamok[1] = 3;
-            szamok[2] = 4;
-            szamok[3] = 7;
-            szamok[4] = 8;
-            szamok[5] = 9;
-            szamok[6] = 10;
-            szamok[7] = 11;
-            Random random = new Random();
+           
             //
             //jatekszabaly kiirasa
 
             //
-            bool vegevan = true;
-            while (vegevan)
-            {
-                for (int j = 0; j < 99999; j++)
-                {
-                    Console.WriteLine();
-                    //nehezseg kivalasztasa
-                    Console.Write("Kérlek válassz nehézséget ('könnyű', 'közepes' vagy 'nehéz'): ");
-                    string nehezseg = Console.ReadLine();
-                    Console.WriteLine();
-                    //
-                    //konnyu jatek
-                    if (nehezseg == "könnyű")
-                    {
-                        int osszeg = 0;
-                        int robotkonnyu = random.Next(16, 31);
-                        int robotalap = random.Next(0, 8);
-                        osszeg += szamok[robotalap];
-                        for (int i = 0; i < 100; i++)
-                        {
-                            Console.WriteLine("{0}. kör", i);
-                            int randomszam = random.Next(0, 8);
-                            osszeg += szamok[randomszam];
-                            Console.WriteLine("Lapjaid összege: {0}", osszeg);
-                            Console.Write("Kérsz még lapot? ('igen' vagy 'nem') ");
-                            string dontes;
-                            dontes = Console.ReadLine();
-                            Console.WriteLine();
-
-                            if (dontes == "igen")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                if (osszeg == 22)
-                                {
-                                    string huszonketto;
-                                    Console.Write("A 0. körben gyűlt ki a 22 pont? ('igen' vagy 'nem') ");
-                                    huszonketto = Console.ReadLine();
-                                    if (huszonketto == "nem")
-                                    {
-                                        Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotkonnyu);
-                                        Console.WriteLine("VESZTETTÉL! :C");
-                                        Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                        string valasz;
-                                        valasz = Console.ReadLine();
-                                        if (valasz == "igen")
-                                        {
-                                            break;
-                                        }
-                                        if (valasz == "nem")
-                                        {
-                                            i += 100 - i;
-                                            j += 99999 - j;
-                                            vegevan = false;
-                                        }
-                                    }
-                                }
-                                Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotkonnyu);
-                                if ((osszeg >= 16 && osszeg <= 22 && robotkonnyu > 22) || (osszeg >= 16 && osszeg <= 22 && robotkonnyu < osszeg) || (osszeg >= 16 && osszeg <= 22 && robotkonnyu == osszeg))
-                                {
-                                    Console.WriteLine("NYERTÉL! C:");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("VESZTETTÉL! :C");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //
-                    //kozepes jatek
-                    if (nehezseg == "közepes")
-                    {
-                        int osszeg = 0;
-                        int robotkozepes = random.Next(16, 27);
-                        int robotalap = random.Next(0, 8);
-                        osszeg += szamok[robotalap];
-                        for (int i = 0; i < 100; i++)
-                        {
-                            Console.WriteLine("{0}. kör", i);
-                            int randomszam = random.Next(0, 8);
-                            osszeg += szamok[randomszam];
-                            Console.WriteLine("Lapjaid összege: {0}", osszeg);
-                            Console.Write("Kérsz még lapot? ('igen' vagy 'nem') ");
-                            string dontes;
-                            dontes = Console.ReadLine();
-                            Console.WriteLine();
-
-                            if (dontes == "igen")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                if (osszeg == 22)
-                                {
-                                    string huszonketto;
-                                    Console.Write("A 0. körben gyűlt ki a 22 pont? ('igen' vagy 'nem') ");
-                                    huszonketto = Console.ReadLine();
-                                    if (huszonketto == "nem")
-                                    {
-                                        Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotkozepes);
-                                        Console.WriteLine("VESZTETTÉL! :C");
-                                        Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                        string valasz;
-                                        valasz = Console.ReadLine();
-                                        if (valasz == "igen")
-                                        {
-                                            break;
-                                        }
-                                        if (valasz == "nem")
-                                        {
-                                            i += 100 - i;
-                                            j += 99999 - j;
-                                            vegevan = false;
-                                        }
-                                    }
-                                }
-                                Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotkozepes);
-                                if ((osszeg >= 16 && osszeg <= 22 && robotkozepes > 22) || (osszeg >= 16 && osszeg <= 22 && robotkozepes < osszeg) || (osszeg >= 16 && osszeg <= 22 && robotkozepes == osszeg))
-                                {
-                                    Console.WriteLine("NYERTÉL! C:");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("VESZTETTÉL! :C");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //
-                    //nehez jatek
-                    if (nehezseg == "nehéz")
-                    {
-                        int osszeg = 0;
-                        int robotnehez = random.Next(16, 23);
-                        int robotalap = random.Next(0, 8);
-                        osszeg += szamok[robotalap];
-                        for (int i = 0; i < 100; i++)
-                        {
-                            Console.WriteLine("{0}. kör", i);
-                            int randomszam = random.Next(0, 8);
-                            osszeg += szamok[randomszam];
-                            Console.WriteLine("Lapjaid összege: {0}", osszeg);
-                            Console.Write("Kérsz még lapot? ('igen' vagy 'nem') ");
-                            string dontes;
-                            dontes = Console.ReadLine();
-                            Console.WriteLine();
-
-                            if (dontes == "igen")
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                if (osszeg == 22)
-                                {
-                                    string huszonketto;
-                                    Console.Write("A 0. körben gyűlt ki a 22 pont? ('igen' vagy 'nem') ");
-                                    huszonketto = Console.ReadLine();
-                                    if (huszonketto == "nem")
-                                    {
-                                        Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotnehez);
-                                        Console.WriteLine("VESZTETTÉL! :C");
-                                        Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                        string valasz;
-                                        valasz = Console.ReadLine();
-                                        if (valasz == "igen")
-                                        {
-                                            break;
-                                        }
-                                        if (valasz == "nem")
-                                        {
-                                            i += 100 - i;
-                                            j += 99999 - j;
-                                            vegevan = false;
-                                        }
-                                    }
-                                }
-                                Console.WriteLine("VÉGEREDMÉNY: {0}/{1}", osszeg, robotnehez);
-                                if ((osszeg >= 16 && osszeg <= 22 && robotnehez > 22) || (osszeg >= 16 && osszeg <= 22 && robotnehez < osszeg))
-                                {
-                                    Console.WriteLine("NYERTÉL! C:");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("VESZTETTÉL! :C");
-                                    Console.Write("Szeretnél új játékot? ('igen' vagy 'nem') ");
-                                    string valasz;
-                                    valasz = Console.ReadLine();
-                                    if (valasz == "igen")
-                                    {
-                                        break;
-                                    }
-                                    if (valasz == "nem")
-                                    {
-                                        i += 100 - i;
-                                        j += 99999 - j;
-                                        vegevan = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //
-                }
-            }
+            
             Console.WriteLine();
             Console.Write("Kilépéshez nyomj egy Entert ...");
             Console.ReadKey(true);
@@ -348,7 +67,106 @@ namespace huszonegy_karakteres
 
         static void Jatek(int diff)
         {
+            int[] szamok = { 2, 3, 4, 7, 8, 9, 10, 11 };
+            bool vegevan = false;
+            int x = 0;
+            int osszeg = 0;
+            int robotdif = Nehezseg(diff);
+            int robotalap = r.Next(0, 8);
+            osszeg += szamok[robotalap];
+            while (!vegevan)
+            {
+                Console.Clear();
+                Console.WriteLine($"{x}. kör");
+                int randomszam = r.Next(0, 8);
+                osszeg += szamok[randomszam];
 
+                Console.WriteLine("Lapjaid összege: {0}", osszeg);
+                Console.Write("Kérsz még lapot?" +
+                    "\n\t1: igen" +
+                    "\n\t2: nem" +
+                    "\nÍrd ide a választásod számát: ");
+                int gomb = int.Parse(Console.ReadLine());
+
+                switch (gomb)
+                {
+                    case 1:
+                        x++;
+                        break;
+                    case 2:
+                        Console.WriteLine($"\nVÉGEREDMÉNY: {osszeg}/{robotdif}");
+                        if ((osszeg >= 16 && osszeg <= 22 && robotdif > 22) || (osszeg >= 16 && osszeg <= 22 && robotdif < osszeg) || (osszeg >= 16 && osszeg <= 22 && robotdif == osszeg) || (x == 0 && osszeg == 22))
+                        {
+                            Console.WriteLine("\nNYERTÉL! C:");
+                            Console.Write("Szeretnél új játékot?" +
+                                "\n\t1: igen" +
+                                "\n\t2: nem" +
+                                "\nÍrd ide a választásod számát: ");
+                            
+                            int uj = int.Parse(Console.ReadLine());
+                            switch (uj)
+                            {
+                                case 1:
+                                    Console.Clear();
+                                    vegevan = true;
+                                    break;
+                                case 2:
+                                    vegevan = true;
+                                    break;
+                                default:
+
+                                    break;
+
+                            }
+                            
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nVESZTETTÉL! :C");
+                            Console.Write("Szeretnél új játékot?" +
+                                "\n\t1: igen" +
+                                "\n\t2: nem" +
+                                "\nÍrd ide a választásod számát: ");
+                            
+                            int uj = int.Parse(Console.ReadLine());
+                            switch (uj)
+                            {
+                                case 1:
+                                    Console.Clear();
+                                    vegevan = true;
+                                    break;
+                                case 2:
+                                    vegevan = true;
+                                    break;
+                                default:
+
+                                    break;
+
+                            }
+                        }
+                        break;
+
+                    default:
+                        Console.WriteLine("Nem megfelelő számot adtál meg");
+                        break;
+                }
+            }
+        }
+
+        static int Nehezseg(int number)
+        {
+            if (number == 1)
+            {
+                return r.Next(16, 31);
+            }
+            else if (number == 2)
+            {
+                return r.Next(16, 27);
+            }
+            else
+            {
+                return r.Next(16, 23);
+            }
         }
     }
 }
