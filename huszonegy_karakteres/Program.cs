@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,26 @@ namespace huszonegy_karakteres
     {
         static void Main(string[] args)
         {
+            var difficulty = new ConsoleMenu(args, level: 1)
+                .Add("Könnyű", () => Jatek(1))
+                .Add("Közepes", () => Jatek(2))
+                .Add("Nehéz", () => Jatek(3))
+                .Add("Vissza", ConsoleMenu.Close);
+
+            var menu = new ConsoleMenu(args, level: 0)
+                .Add("Játékszabály", () => Jatekszabaly())
+                .Add("Start", () => difficulty.Show())
+                .Add("Kilépés", ConsoleMenu.Close);
+
+            
+
+            menu.Show();
+
+
+
+
+
+
             //a szamok letrehozasa
             int[] szamok = new int[8];
             szamok[0] = 2;
@@ -23,20 +44,7 @@ namespace huszonegy_karakteres
             Random random = new Random();
             //
             //jatekszabaly kiirasa
-            Console.WriteLine("HUSZONEGY (Magyar kártyajáték)");
-            Console.WriteLine();
-            Console.WriteLine("Játékszabály:");
-            Console.WriteLine("- A huszonegy nevezetű kártyajáték lényege, hogy a kézben levő kártyák összege megközelítse, optimális esetben elérje a 21-et, de túllépni nem szabad.");
-            Console.WriteLine("- 16 összegű eredménynél már meg lehet állni, vagy lehet kockáztatni azzal, hogy új kártyát húzol.");
-            Console.WriteLine("- Ellenfeled egy robot lesz; az a játékos nyer, akinek több összegű lapja lesz a kör végén.");
-            Console.WriteLine("- A 0. körben két lappal kezdesz, a két lap összege fog megjelenni a képernyőn.");
-            Console.WriteLine("- Abban az esetben, ha egyenlő a két szám, az osztóé fog nyerni.");
-            Console.WriteLine("- Ha a 0. körben 22 pontod van, ergo az első két kártyád 11-et és 11-et ér, akkor azzal is lehet nyerni, sőt, az a huszonegy Joker-e.");
-            Console.WriteLine();
-            Console.WriteLine("Háromféle játékmód közül választhatsz:");
-            Console.WriteLine("Könnyű: Ellenfeled (robot) eredménye túllépheti a 22-őt, és te vagy az osztó.");
-            Console.WriteLine("Közepes: Ellenfeled (robot) eredménye túllépheti a 22-őt maximum 4 számmal, és te vagy az osztó.");
-            Console.WriteLine("Nehéz: Ellenfeled (robot) eredménye minimum 16, maximum 22 lehet, és ő az osztó.");
+
             //
             bool vegevan = true;
             while (vegevan)
@@ -46,8 +54,7 @@ namespace huszonegy_karakteres
                     Console.WriteLine();
                     //nehezseg kivalasztasa
                     Console.Write("Kérlek válassz nehézséget ('könnyű', 'közepes' vagy 'nehéz'): ");
-                    string nehezseg;
-                    nehezseg = Console.ReadLine();
+                    string nehezseg = Console.ReadLine();
                     Console.WriteLine();
                     //
                     //konnyu jatek
@@ -316,6 +323,32 @@ namespace huszonegy_karakteres
             Console.WriteLine();
             Console.Write("Kilépéshez nyomj egy Entert ...");
             Console.ReadKey(true);
+        }
+
+        static void Jatekszabaly()
+        {
+            
+            Console.WriteLine("HUSZONEGY (Magyar kártyajáték)" +
+                "\n");
+            Console.WriteLine("Játékszabály:");
+            Console.WriteLine("\t- a Huszonegy nevezetű kártyajáték lényege, hogy a kézben levő kártyák összege megközelítse, optimális esetben elérje a 21-et, de túllépni nem szabad" +
+                "\n\t- 16 összegű eredménynél már meg lehet állni, vagy lehet kockáztatni azzal, hogy új kártyát húzol" +
+                "\n\t- ellenfeled egy robot lesz; az a játékos nyer, akinek nagyobb összegű lapja lesz a kör végén" +
+                "\n\t- a 0. körben két lappal kezdesz, a két lap összege fog megjelenni a képernyőn" +
+                "\n\t- abban az esetben, ha egyenlő a két szám, az osztóé fog nyerni" +
+                "\n\t- ha a 0. körben 22 pontod van - ergo az első két kártyád 11-et és 11-et ér -, akkor azzal instant nyersz" +
+                "\n\t- ");
+            Console.WriteLine("Játékmódok: ");
+            Console.WriteLine("\n\t1. Könnyű: ellenfeled robot eredménye túllépheti a 22-őt, és te vagy az osztó" +
+                "\n\t2. Közepes: ellenfeled eredménye túllépheti a 22-őt maximum 4 számmal, és te vagy az osztó" +
+                "\n\t3. Nehéz: ellenfeled eredménye minimum 16, maximum 22 lehet, és ő az osztó");
+
+            Console.ReadLine();
+        }
+
+        static void Jatek(int diff)
+        {
+
         }
     }
 }
