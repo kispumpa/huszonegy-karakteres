@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,17 +17,26 @@ namespace huszonegy_karakteres
                 .Add("Könnyű", () => Jatek(1))
                 .Add("Közepes", () => Jatek(2))
                 .Add("Nehéz", () => Jatek(3))
-                .Add("Vissza", ConsoleMenu.Close);
+                .Add("Vissza", ConsoleMenu.Close)
+                .Configure(config =>
+                {
+                    config.Selector = "--> ";
+                    config.Title = "Nehézségi szint\n";
+                    config.EnableBreadcrumb = true;
+                });
 
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Játékszabály", () => Jatekszabaly())
                 .Add("Start", () => difficulty.Show())
-                .Add("Kilépés", ConsoleMenu.Close);
+                .Add("Kilépés", ConsoleMenu.Close)
+                .Configure(config =>
+                {
+                    config.Selector = "--> ";
+                    config.Title = "Huszonegy\n";
+                    config.EnableBreadcrumb = true;
+                });
 
             menu.Show();
-
-            Console.Write("Kilépéshez nyomj egy Entert ...");
-            Console.ReadKey();
         }
 
         static void Jatekszabaly()
@@ -39,8 +49,7 @@ namespace huszonegy_karakteres
                 "\n\t- ellenfeled egy robot lesz; az a játékos nyer, akinek nagyobb összegű lapja lesz a kör végén" +
                 "\n\t- a 0. körben két lappal kezdesz, a két lap összege fog megjelenni a képernyőn" +
                 "\n\t- abban az esetben, ha egyenlő a két szám, az osztóé fog nyerni" +
-                "\n\t- ha a 0. körben 22 pontod van - ergo az első két kártyád 11-et és 11-et ér -, akkor azzal instant nyersz" +
-                "\n\t- ");
+                "\n\t- ha a 0. körben 22 pontod van - ergo az első két kártyád 11-et és 11-et ér -, akkor azzal instant nyersz");
             Console.WriteLine("Játékmódok: ");
             Console.WriteLine("\n\t1. Könnyű: ellenfeled robot eredménye túllépheti a 22-őt, és te vagy az osztó" +
                 "\n\t2. Közepes: ellenfeled eredménye túllépheti a 22-őt maximum 4 számmal, és te vagy az osztó" +
