@@ -100,7 +100,14 @@ namespace huszonegy_karakteres
                         break;
                     case 2:
                         Console.WriteLine($"\nVÉGEREDMÉNY: {osszeg}/{robotdif}");
-                        if ((osszeg >= 16 && osszeg <= 22 && robotdif > 22) || (osszeg >= 16 && osszeg <= 22 && robotdif < osszeg) || (osszeg >= 16 && osszeg <= 22 && robotdif == osszeg) || (x == 0 && osszeg == 22))
+
+                        if ((osszeg >= 16 && osszeg < 22 && (robotdif > 22 || robotdif < osszeg || (robotdif == osszeg && diff < 3))) || (x == 0 && osszeg == 22 && (diff < 3 || (diff == 3 && robotdif != osszeg))))
+                        {
+
+                        }
+
+
+                        if ((osszeg >= 16 && osszeg < 22 && robotdif > 22) || (osszeg >= 16 && osszeg < 22 && robotdif < osszeg) || (osszeg >= 16 && osszeg < 22 && robotdif == osszeg && diff < 3) || (x == 0 && osszeg == 22 && diff < 3) || (x == 0 && osszeg == 22 && diff == 3 && robotdif != osszeg))
                         {
                             Console.WriteLine("\nNYERTÉL! C:");
                             bool joe = false;
