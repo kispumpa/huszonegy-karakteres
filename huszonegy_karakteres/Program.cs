@@ -1,17 +1,14 @@
-﻿using ConsoleTools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace huszonegy_karakteres
+﻿namespace Huszonegy_karakteres
 {
-    internal class Program
+    using System;
+    using ConsoleTools;
+
+    public class Program
     {
-        static Random r = new Random();
-        static void Main(string[] args)
+        private static Random r = new Random();
+        private static int[] szamok = { 2, 3, 4, 7, 8, 9, 10, 11 };
+
+        private static void Main(string[] args)
         {
             var difficulty = new ConsoleMenu(args, level: 1)
                 .Add("Könnyű", () => Jatek(1))
@@ -39,10 +36,10 @@ namespace huszonegy_karakteres
             menu.Show();
         }
 
-        static void Jatekszabaly()
+        private static void Jatekszabaly()
         {
-            Console.WriteLine("HUSZONEGY (Magyar kártyajáték)" +
-                "\n");
+            Console.WriteLine("HUSZONEGY (Magyar kártyajáték)\n");
+
             Console.WriteLine("Játékszabály:");
             Console.WriteLine("\t- a Huszonegy nevezetű kártyajáték lényege, hogy a kézben levő kártyák összege megközelítse, optimális esetben elérje a 21-et, de túllépni nem szabad" +
                 "\n\t- 16 összegű eredménynél már meg lehet állni, vagy lehet kockáztatni azzal, hogy új kártyát húzol" +
@@ -50,24 +47,23 @@ namespace huszonegy_karakteres
                 "\n\t- a 0. körben két lappal kezdesz, a két lap összege fog megjelenni a képernyőn" +
                 "\n\t- abban az esetben, ha egyenlő a két szám, az osztóé fog nyerni" +
                 "\n\t- ha a 0. körben 22 pontod van - ergo az első két kártyád 11-et és 11-et ér -, akkor azzal instant nyersz");
-            Console.WriteLine("Játékmódok: ");
-            Console.WriteLine("\n\t1. Könnyű: ellenfeled robot eredménye túllépheti a 22-őt, és te vagy az osztó" +
+            Console.WriteLine("Játékmódok:\n");
+            Console.WriteLine("\t1. Könnyű: ellenfeled robot eredménye túllépheti a 22-őt, és te vagy az osztó" +
                 "\n\t2. Közepes: ellenfeled eredménye túllépheti a 22-őt maximum 4 számmal, és te vagy az osztó" +
                 "\n\t3. Nehéz: ellenfeled eredménye minimum 16, maximum 22 lehet, és ő az osztó");
 
             Console.ReadLine();
         }
 
-        static void Jatek(int diff)
+        private static void Jatek(int diff)
         {
-            int[] szamok = { 2, 3, 4, 7, 8, 9, 10, 11 };
-            bool vegevan = false;
+            bool nincsVege = true;
             int x = 0;
             int osszeg = 0;
             int robotdif = Nehezseg(diff);
             int robotalap = r.Next(0, 8);
             osszeg += szamok[robotalap];
-            while (!vegevan)
+            while (nincsVege)
             {
                 Console.Clear();
                 Console.WriteLine($"{x}. kör");
@@ -76,18 +72,18 @@ namespace huszonegy_karakteres
 
                 Console.WriteLine("Lapjaid összege: {0}", osszeg);
                 bool correct = false;
-                int gomb = 0;
+                int huzELapot = 0;
                 while (!correct)
                 {
                     Console.Write("Kérsz még lapot?" +
                     "\n\t1: igen" +
                     "\n\t2: nem" +
                     "\nÍrd ide a választásod számát: ");
-                    
+
                     try
                     {
-                        gomb = int.Parse(Console.ReadLine());
-                        if (gomb < 1 || gomb > 2)
+                        huzELapot = int.Parse(Console.ReadLine());
+                        if (huzELapot < 1 || huzELapot > 2)
                         {
                             throw new FormatException();
                         }
@@ -102,7 +98,7 @@ namespace huszonegy_karakteres
                     }
                 }
 
-                switch (gomb)
+                switch (huzELapot)
                 {
                     case 1:
                         x++;
@@ -110,95 +106,17 @@ namespace huszonegy_karakteres
                     case 2:
                         Console.WriteLine($"\nVÉGEREDMÉNY: {osszeg}/{robotdif}");
 
-                        if ((osszeg >= 16 && osszeg < 22 && (robotdif > 22 || robotdif < osszeg || (robotdif == osszeg && diff < 3))) || (x == 0 && osszeg == 22 && (diff < 3 || (diff == 3 && robotdif != osszeg))))
+                        if (YouWin(osszeg, robotdif, diff, x))
                         {
                             Console.WriteLine("\nNYERTÉL! C:");
-                            bool joe = false;
-                            int uj = 0;
-                            while (!joe)
-                            {
-                                Console.Write("Szeretnél új játékot?" +
-                                "\n\t1: igen" +
-                                "\n\t2: nem" +
-                                "\nÍrd ide a választásod számát: ");
-                                
-                                try
-                                {
-                                    uj = int.Parse(Console.ReadLine());
-                                    if (uj < 1 || uj > 2)
-                                    {
-                                        throw new FormatException();
-                                    }
-                                    else
-                                    {
-                                        joe = true;
-                                    }
-                                }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Nem megfelelő értéket adtál meg");
-                                }
-                            }
-                            
-                            switch (uj)
-                            {
-                                case 1:
-                                    Console.Clear();
-                                    vegevan = true;
-                                    break;
-                                case 2:
-                                    vegevan = true;
-                                    break;
-                                default:
-                                    break;
-
-                            }
-                            
+                            nincsVege = UjJatekKerdoiv(ref x, ref osszeg, ref robotdif, ref robotalap, diff);
                         }
                         else
                         {
                             Console.WriteLine("\nVESZTETTÉL! :C");
-                            int uj = 0;
-                            bool joe = false;
-                            while (!joe)
-                            {
-                                Console.Write("Szeretnél új játékot?" +
-                                "\n\t1: igen" +
-                                "\n\t2: nem" +
-                                "\nÍrd ide a választásod számát: ");
-
-                                try
-                                {
-                                    uj = int.Parse(Console.ReadLine());
-                                    if (uj < 1 || uj > 2)
-                                    {
-                                        throw new FormatException();
-                                    }
-                                    else
-                                    {
-                                        joe = true;
-                                    }
-                                }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Nem megfelelő értéket adtál meg");
-                                }
-                            }
-
-                            switch (uj)
-                            {
-                                case 1:
-                                    Console.Clear();
-                                    vegevan = true;
-                                    break;
-                                case 2:
-                                    vegevan = true;
-                                    break;
-                                default:
-                                    break;
-
-                            }
+                            nincsVege = UjJatekKerdoiv(ref x, ref osszeg, ref robotdif, ref robotalap, diff);
                         }
+
                         break;
 
                     default:
@@ -207,7 +125,8 @@ namespace huszonegy_karakteres
             }
         }
 
-        static int Nehezseg(int number)
+        // Seged metodusok
+        private static int Nehezseg(int number)
         {
             if (number == 1)
             {
@@ -221,6 +140,69 @@ namespace huszonegy_karakteres
             {
                 return r.Next(16, 23);
             }
+        }
+
+        private static bool YouWin(int osszeg, int robotdif, int diff, int x)
+        {
+            if ((osszeg >= 16 && osszeg < 22 && (robotdif > 22 || robotdif < osszeg || (robotdif == osszeg && diff < 3))) || (x == 0 && osszeg == 22 && (diff < 3 || (diff == 3 && robotdif != osszeg))))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool UjJatekKerdoiv(ref int x, ref int osszeg, ref int robotdif, ref int robotalap, int diff)
+        {
+            int uj = 0;
+            bool joe = false;
+            while (!joe)
+            {
+                Console.Write("Szeretnél új játékot?" +
+                "\n\t1: igen" +
+                "\n\t2: nem" +
+                "\nÍrd ide a választásod számát: ");
+
+                try
+                {
+                    uj = int.Parse(Console.ReadLine());
+                    if (uj < 1 || uj > 2)
+                    {
+                        throw new FormatException();
+                    }
+                    else
+                    {
+                        joe = true;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Nem megfelelő értéket adtál meg");
+                }
+            }
+
+            switch (uj)
+            {
+                case 1:
+                    Console.Clear();
+                    RestoreValues(ref x, ref osszeg, ref robotdif, ref robotalap, diff);
+                    return true;
+                case 2:
+                    return false;
+                default:
+                    break;
+            }
+
+            return false;
+        }
+
+        private static void RestoreValues(ref int x, ref int osszeg, ref int robotdif, ref int robotalap, int diff)
+        {
+            x = 0;
+            osszeg = 0;
+            robotdif = Nehezseg(diff);
+            robotalap = r.Next(0, 8);
+            osszeg += szamok[robotalap];
         }
     }
 }
