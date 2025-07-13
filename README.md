@@ -1,18 +1,73 @@
-<h1>Huszonegy - magyar kártyajáték</h1>
-<h4>karakteres változat</h4><br>
-<h2>Elnevezés</h2>
-<p>A huszonegy nevezetű magyar kártyajáték lényege, hogy a kézben levő kártyák összege megközelítse, optimális esetben elérje a 21-et, de túllépni nem szabad.</p>
-<h2>Játékszabály</h2>
-<ul>
-  <li>16 összegű eredménynél már meg lehet állni, vagy lehet kockáztatni azzal, hogy új kártyát húzol</li>
-  <li>Ellenfeled egy robot lesz; az a játékos nyer, akinek több összegű lapja lesz a kör végén</li>
-  <li>A 0. körben két lappal kezdesz, a két lap összege fog megjelenni a képernyőn</li>
-  <li>Abban az esetben, ha egyenlő a két szám, az osztóé fog nyerni</li>
-  <li>Ha a 0. körben 22 pontod van - ergo az első két kártyád 11-et és 11-et ér - akkor az instant nyer</li>
-</ul>
-<h2>Játék módok</h2>
-<ol>
-  <li>Könnyű: ellenfeled eredménye túllépheti a 22-őt, és te vagy az osztó</li>
-  <li>Közepes: ellenfeled eredménye túllépheti a 22-őt maximum 4 számmal, és te vagy az osztó</li>
-  <li>Nehéz: ellenfeled eredménye minimum 16, maximum 22 lehet, és ő az osztó</li>
-</ol>
+# Huszonegy - Magyar kártyajáték
+**Karakteres változat**
+
+## Leírás
+A Huszonegy egy magyar kártyajáték implementáció konzolos alkalmazásként. A játék célja, hogy a kézben levő kártyák összege megközelítse vagy elérje a 21-et anélkül, hogy túllépné azt.
+
+## Játékszabályok
+
+### Alapszabályok
+- A kártyák összege törekedjen a 21-re, de ne lépje túl
+- 16 összegű eredménynél már meg lehet állni, vagy lehet kockáztatni új kártyával
+- Az ellenfél egy számítógépes robot
+- A nagyobb összegű lap tulajdonosa nyer
+- Egyenlő eredmény esetén az osztó nyer
+- Ha az első két kártya összege 22 (11+11), az a "huszonegy Joker" és nyerő kombináció
+
+## Nehézségi szintek
+
+### 🟢 Könnyű
+- A robot eredménye túllépheti a 22-t
+- Te vagy az osztó
+
+### 🟡 Közepes
+- A robot eredménye maximum 4 számmal lépheti túl a 22-t
+- Te vagy az osztó
+
+### 🔴 Nehéz
+- A robot eredménye 16-22 között lehet
+- A robot az osztó
+
+## Telepítés és futtatás
+
+### Követelmények
+- .NET Framework 4.8
+- Windows operációs rendszer
+
+### Alkalmazás
+- Visual Studio 2017 vagy újabb (fejlesztéshez)
+- A Release-ben található exe fájl (játékhoz)
+
+## Projekt struktúra
+
+```
+huszonegy_karakteres/
+├── huszonegy_karakteres/          # Fő alkalmazás
+│   ├── Program.cs                 # Fő programlogika
+│   ├── Properties/
+│   │   └── AssemblyInfo.cs       # Assembly információk
+│   ├── App.config                # Alkalmazás konfiguráció
+│   └── packages.config           # NuGet csomagok
+├── Tester/                       # Unit tesztek
+│   ├── TesterClass.cs            # Teszt osztály
+│   └── Tester.csproj            # Teszt projekt konfiguráció
+└── README.md                     # Projekt dokumentáció
+```
+
+
+## Fejlesztési információk
+
+### Használt technológiák
+- **Nyelv**: C# (.NET Framework 4.8)
+- **UI**: Cmd
+- **Kódstílus**: StyleCop Analyzers
+- **Fejlesztői környezet**: Visual Studio
+
+### Készítő
+
+- **Matula Márton**  
+- Első változat: 2022. április 19. *v.0.1.0.0*
+- Legutóbbi változat: 2025. július 13. *v.1.0.0.1*
+---
+
+*Ez a README az 2. release (2025.07.13.) alapján készült.*
