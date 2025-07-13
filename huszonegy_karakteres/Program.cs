@@ -1,8 +1,12 @@
-﻿namespace Huszonegy_karakteres
+﻿// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) Matula Marton. All rights reserved.
+// </copyright>
+namespace Huszonegy_karakteres
 {
     using System;
     using ConsoleTools;
 
+    /// <summary>Class for functionality.</summary>
     public class Program
     {
         private static Random r = new Random();
